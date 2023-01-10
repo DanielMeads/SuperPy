@@ -44,3 +44,4 @@ These reports can be used with the date variations of:
     Yesterday - will provide a report for the day before the program date.
     Date - will report on or before a specific date. ("YYYY-MM-DD")
     Month - will report on specific month ("YYYY-MM")
+

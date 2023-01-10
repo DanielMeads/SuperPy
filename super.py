@@ -16,8 +16,9 @@ Superpy.add_argument('-sd', '--SetDate', help='Reset the date file to today.', a
 Superpy.add_argument('-ad', '--AdvanceDate', type=int, help="Advance or regress the date by a number of days")
 Superpy.add_argument('-pn', '--Productname', type=str, help="Product Name")
 Superpy.add_argument('-p', '--Price', type=float, help="Product Price")
-Superpy.add_argument('-a', '--Amount', type=float, help="Amount of Product", default=1)
+Superpy.add_argument('-a', '--Amount', type=int, help="Amount of Product", default=1)
 Superpy.add_argument('-ex', '--Expirationdate', type=str, help="Expiration date in 'YYYY-MM-DD' format", default="2999-12-31")
+Superpy.add_argument('-ef', '--Exportfile', help="Export report to CSV file in the data directory", action="store_true")
 Superpy.add_argument('action', nargs='?', type=str, default='')
 Superpy.add_argument('type', nargs='?', type=str, default='')
 
@@ -71,15 +72,15 @@ else:
 #Report actions
 if args.action == "report":
     if args.type == "inventory":
-        Reports.stock_table('Current Stock', temp_date, specificdate)
+        Reports.stock_table('Current Stock', temp_date, specificdate, args.Exportfile)
     elif args.type == "expired":
-        Reports.stock_table('Expired', temp_date, specificdate)
+        Reports.stock_table('Expired', temp_date, specificdate, args.Exportfile)
     elif args.type == "purchases":
-        Reports.stock_table('Purchases', temp_date, specificdate)
+        Reports.stock_table('Purchases', temp_date, specificdate, args.Exportfile)
     elif args.type == "sales":
-        Reports.stock_table('Sales', temp_date, specificdate)
+        Reports.stock_table('Sales', temp_date, specificdate, args.Exportfile)
     elif args.type == 'products':
-        Reports.stock_table('Products',temp_date, specificdate)
+        Reports.stock_table('Products',temp_date, specificdate, args.Exportfile)
     elif args.type == 'revenue':
         console.print(f"{datename} revenue: {Reports.stock_reports('revenue',temp_date, specificdate)}")
     elif args.type == 'expenses':
@@ -88,3 +89,12 @@ if args.action == "report":
         console.print(f"{datename} profit: {Reports.stock_reports('profit',temp_date, specificdate)}") 
     else:
         console.print('Please spcify a type of report.', style='red bold')
+
+#Graph actions
+if args.action == 'graph':
+    if args.type == 'stock':
+        Reports.stock_bars()
+    elif args.type == 'value':
+        Reports.graphing('Stock Value')
+    elif args.type == 'purchases':
+        Reports.graphing('Purchases by day')
