@@ -250,8 +250,9 @@ class Reports():
         bought = Install.load_data(Install.bought, False)
         sold = Install.load_data(Install.sold, False)
         data = {}
+        # for Stock value graph data
         if type == 'Stock Value':
-            xname = 'Day'
+            xname = 'Product'
             yname = 'Value'
             for line in bought:
                 for row in sold:
@@ -259,11 +260,13 @@ class Reports():
                         line['count'] -= row['count']
                         if line['count'] == 0:
                             del line
+                if row['count'] < 0:
                     line['value'] = line['count'] * line['buy_price']
                 if line['product_name'] not in data:
                     data[line['product_name']] = int(line['value'])
                 elif line['product_name'] in data:
                     data[line['product_name']] += line['value']
+        # For purchasing report data
         if type == 'Purchases by day':
             xname = 'Day'
             yname = 'Value'
@@ -272,7 +275,7 @@ class Reports():
                     data[line['buy_date']] += (line['count']*line['buy_price'])
                 elif line['buy_date'] not in data:
                     data[line['buy_date']] = (line['count']*line['buy_price'])
-
+        #take data for graph
         x_axis = list(data.keys())
         y_axis = list(data.values())
         plt.plot(x_axis, y_axis)

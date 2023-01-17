@@ -17,10 +17,10 @@ Superpy.add_argument('-ad', '--AdvanceDate', type=int, help="Advance or regress 
 Superpy.add_argument('-pn', '--Productname', type=str, help="Product Name")
 Superpy.add_argument('-p', '--Price', type=float, help="Product Price")
 Superpy.add_argument('-a', '--Amount', type=int, help="Amount of Product", default=1)
-Superpy.add_argument('-ex', '--Expirationdate', type=str, help="Expiration date in 'YYYY-MM-DD' format", default="2999-12-31")
+Superpy.add_argument('-ex', '--Expirationdate', type=str, help="Expiration date in 'YYYY-MM-DD' format - default '2999-12-31'", default="2999-12-31")
 Superpy.add_argument('-ef', '--Exportfile', help="Export report to CSV file in the data directory", action="store_true")
-Superpy.add_argument('action', nargs='?', type=str, default='')
-Superpy.add_argument('type', nargs='?', type=str, default='')
+Superpy.add_argument('action', nargs='?', help="Take action: buy, sell, remove, report, graph", type=str, default='')
+Superpy.add_argument('type', nargs='?', help="Designate type of report action: inventory, expired, purchases, sales, products, revenue, expenses, profit or graph action: stock, value, purchases", type=str, default='')
 
 #Defining date arguments for reporting
 temp_date_arguments = Superpy.add_mutually_exclusive_group()
