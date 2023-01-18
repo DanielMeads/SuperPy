@@ -256,18 +256,16 @@ class Reports():
             yname = 'Value'
             for line in bought:
                 for row in sold:
-                    if row['bought_id'] == line['id']:
+                    if int(row['bought_id']) == int(line['id']):
                         line['count'] -= row['count']
-                        if line['count'] == 0:
-                            del line
-                if row['count'] < 0:
-                    line['value'] = line['count'] * line['buy_price']
-                if line['product_name'] not in data:
-                    data[line['product_name']] = int(line['value'])
-                elif line['product_name'] in data:
-                    data[line['product_name']] += line['value']
-        # For purchasing report data
-        if type == 'Purchases by day':
+                if line['count'] > 0:
+                    line['value'] = (line['count'] * line['buy_price'])
+                    if line['product_name'] not in data:
+                        data[line['product_name']] = line['value']
+                    elif line['product_name'] in data:
+                        data[line['product_name']] += line['value']
+        # For purchasing report
+        if type == 'Purchases by day': 
             xname = 'Day'
             yname = 'Value'
             for line in bought:
