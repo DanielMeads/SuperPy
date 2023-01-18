@@ -37,6 +37,10 @@ Reports:
     Expenses - Reports on amount spent on purchases.
     Profit - Reports on the revenue minus the purchasing costs.
 
+Graphs:
+    stock - Povides a graph showing the amount of products currently in stock.
+    value - Povides a graph showing the amount of products by purchase value.
+    purchases - Povides a grpah showing the amount of products purchased by day.
 
 These reports can be used with the date variations of:
 
