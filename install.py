@@ -70,23 +70,26 @@ class Install():
     #Data fetch
     def load_data(file, list=False):
         data = []
-        with open(file, "r", newline='') as csvfile:
-            read = csv.reader(csvfile)
-            if file == Install.time:
-                for row in read:
-                    data = formatting.str2date(row[0])  
-            else:
-                next(read, None)
-                for row in read:
-                    if list == False:
-                        if file == Install.bought:
-                            towrite = {'id': int(row[0]), 'product_name': str(row[1]), 'count': int(row[2]), 'buy_price': float(row[3]), 'buy_date': formatting.str2date(row[4]), 'expiration_date': formatting.str2date(row[5])}
-                        if file == Install.sold:    
-                            towrite = {'id': int(row[0]), 'bought_id': str(row[1]), 'count': int(row[2]), 'sell_price': float(row[3]), 'sell_date': formatting.str2date(row[4]), 'product_name': str(row[5])}
-                        data.append(towrite)                       
-                    else:
-                        data.append(row) 
-        csvfile.close()   
+        try:
+            with open(file, "r", newline='') as csvfile:
+                read = csv.reader(csvfile)
+                if file == Install.time:
+                    for row in read:
+                        data = formatting.str2date(row[0])
+                else:
+                    next(read, None)
+                    for row in read:
+                        if list == False:
+                            if file == Install.bought:
+                                towrite = {'id': int(row[0]), 'product_name': str(row[1]), 'count': int(row[2]), 'buy_price': float(row[3]), 'buy_date': formatting.str2date(row[4]), 'expiration_date': formatting.str2date(row[5])}
+                            if file == Install.sold:    
+                                towrite = {'id': int(row[0]), 'bought_id': str(row[1]), 'count': int(row[2]), 'sell_price': float(row[3]), 'sell_date': formatting.str2date(row[4]), 'product_name': str(row[5])}
+                            data.append(towrite)                       
+                        else:
+                            data.append(row) 
+            csvfile.close()   
+        except OSError as e:
+            console.print(".") #if more informaiton needed insert "No files found please install or reinstall Super.py"
         return data
 
 
